@@ -21,15 +21,15 @@ const Home = () => {
 
   const [jobInfo, setJobInfo] = useState([]);
 
-  const getJobInfoList = async () => {
-    try {
-      const data = await getDocs(jobInfoCollection);
-      const getData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setJobInfo(getData);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //   const getJobInfoList = async () => {
+  //     try {
+  //       const data = await getDocs(jobInfoCollection);
+  //       const getData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  //       setJobInfo(getData);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
 
   const [selectedJob, setSelectedJob] = useState(null);
   const [openApplyModal, setOpenApplyModal] = useState(false);
@@ -38,10 +38,6 @@ const Home = () => {
     phoneNumber: "",
     email: "",
   });
-
-  const handleCardClick = (index) => {
-    setSelectedJob(jobInfo[index]);
-  };
 
   const handleApplyClick = () => {
     setOpenApplyModal(true);
@@ -67,16 +63,34 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // Automatically select the first card when the component mounts
-    handleCardClick(0);
-    getJobInfoList();
+    const fetchData = async () => {
+      try {
+        const data = await getDocs(jobInfoCollection);
+        const getData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        setJobInfo(getData);
+
+        // Automatically select the first card when the component mounts
+        if (getData.length > 0) {
+          setSelectedJob(getData[0]);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  const handleCardClick = (index) => {
+    // Check if jobInfo is not empty and index is valid
+    if (jobInfo.length > 0 && index >= 0 && index < jobInfo.length) {
+      setSelectedJob(jobInfo[index]);
+      console.log("card clicks", index);
+    }
+  };
 
   return (
     <>
-      {/* {jobInfo.map(({ id, jobTitle }) => (
-        <div key={id}>{jobTitle}</div>
-      ))} */}
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={5}>
