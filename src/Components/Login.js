@@ -28,7 +28,7 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-export const Auth = () => {
+export const Login = () => {
   // TODO: Update all these useState to useReducer and create a function called reducer.
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
