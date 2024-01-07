@@ -91,71 +91,69 @@ const Home = () => {
 
   return (
     <>
-      <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={5}>
-            {jobInfo.map(
-              ({ jobTitle, companyName, location, salaryRange }, index) => (
-                <Card
-                  key={index}
-                  sx={{
-                    boxShadow: 0,
-                    border: "1px solid #ddd",
-                    mb: 1,
-                    cursor: "pointer",
-                  }}
-                  onClick={() => handleCardClick(index)}
-                >
-                  <CardContent>
-                    <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                      {jobTitle}
-                    </Typography>
-                    <Typography variant="body1" mb={2}>
-                      {companyName}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {location}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {salaryRange}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              )
-            )}
-          </Grid>
-          <Grid item xs={7}>
-            <Card sx={{ boxShadow: 0, border: "1px solid #ddd" }}>
-              <CardContent>
-                {selectedJob && (
-                  <>
-                    <Typography variant="h5">{selectedJob.jobTitle}</Typography>
-                    <Typography variant="body1">
-                      {selectedJob.companyName}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {selectedJob.location}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" mb={2}>
-                      {selectedJob.salaryRange}
-                    </Typography>
-                    <Typography variant="body2" mb={2}>
-                      {selectedJob.jobDescription}
-                    </Typography>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleApplyClick}
-                    >
-                      Apply
-                    </Button>
-                  </>
-                )}
-              </CardContent>
-            </Card>
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={5}>
+          {jobInfo.map(
+            ({ jobTitle, companyName, location, salaryRange }, index) => (
+              <Card
+                key={index}
+                sx={{
+                  boxShadow: 0,
+                  border: "1px solid #ddd",
+                  mb: 1,
+                  cursor: "pointer",
+                }}
+                onClick={() => handleCardClick(index)}
+              >
+                <CardContent>
+                  <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                    {jobTitle}
+                  </Typography>
+                  <Typography variant="body1" mb={2}>
+                    {companyName}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {location}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {salaryRange}
+                  </Typography>
+                </CardContent>
+              </Card>
+            )
+          )}
         </Grid>
-      </Container>
+        <Grid item xs={7}>
+          <Card sx={{ boxShadow: 0, border: "1px solid #ddd" }}>
+            <CardContent>
+              {selectedJob && (
+                <>
+                  <Typography variant="h5">{selectedJob.jobTitle}</Typography>
+                  <Typography variant="body1">
+                    {selectedJob.companyName}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {selectedJob.location}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" mb={2}>
+                    {selectedJob.salaryRange}
+                  </Typography>
+                  <Typography variant="body2" mb={2}>
+                    {selectedJob.jobDescription}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleApplyClick}
+                  >
+                    Apply
+                  </Button>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
 
       {/* Apply Modal */}
       <Dialog open={openApplyModal} onClose={handleApplyModalClose}>
