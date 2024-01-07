@@ -4,7 +4,6 @@ import { getDocs, collection } from "firebase/firestore";
 
 import {
   Button,
-  Container,
   Grid,
   Card,
   CardContent,
@@ -20,6 +19,7 @@ const Home = () => {
   const jobInfoCollection = collection(db, "jobInfo");
 
   const [jobInfo, setJobInfo] = useState([]);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
 
   //   const getJobInfoList = async () => {
   //     try {
@@ -85,7 +85,7 @@ const Home = () => {
     // Check if jobInfo is not empty and index is valid
     if (jobInfo.length > 0 && index >= 0 && index < jobInfo.length) {
       setSelectedJob(jobInfo[index]);
-      console.log("card clicks", index);
+      setActiveCardIndex(index);
     }
   };
 
@@ -99,9 +99,18 @@ const Home = () => {
                 key={index}
                 sx={{
                   boxShadow: 0,
-                  border: "1px solid #ddd",
+                  border:
+                    activeCardIndex === index
+                      ? "1px solid #007bff"
+                      : "1px solid #ddd",
                   mb: 1,
                   cursor: "pointer",
+                  backgroundColor:
+                    activeCardIndex === index ? "#EFF7FF" : "inherit", // Background color change
+                  "&:hover": {
+                    backgroundColor:
+                      activeCardIndex === index ? "#cce5ff" : "#f0f0f0", // Hover effect
+                  },
                 }}
                 onClick={() => handleCardClick(index)}
               >
