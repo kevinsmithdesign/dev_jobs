@@ -21,6 +21,7 @@ function App() {
             <Route path="/applied" element={<h1>Applied</h1>} />
           </Routes>
         </Container>
+        <div>debugging git commit log</div>
       </BrowserRouter>
     </div>
   );
