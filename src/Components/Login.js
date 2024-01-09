@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { auth, googleProvider } from "../firebase-config";
 import {
   createUserWithEmailAndPassword,
@@ -27,6 +27,8 @@ import {
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { AuthContext } from "../Context/AuthContext";
+import userEvent from "@testing-library/user-event";
 
 export const Login = () => {
   // TODO: Update all these useState to useReducer and create a function called reducer.
@@ -37,6 +39,8 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
+  const { dispatch } = useContext(AuthContext);
+
   const createAccount = async (e) => {
     e.preventDefault();
     try {
@@ -46,15 +50,29 @@ export const Login = () => {
     }
   };
 
-  const login = async (e) => {
+  // const login = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await signInWithEmailAndPassword(auth, email, password);
+  //     dispatch({ type: "LOGIN" });
+  //     navigate("/home");
+  //   } catch (err) {
+  //     console.error(err);
+  //     setError(true);
+  //   }
+  // };
+
+  const login = (e) => {
     e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/home");
-    } catch (err) {
-      console.error(err);
-      setError(true);
-    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/home");
+      })
+      .catch((err) => {
+        setError(true);
+      });
   };
 
   const signInWithGoogle = async (e) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import "./App.css";
@@ -22,12 +22,14 @@ import {
 
 import AdbIcon from "@mui/icons-material/Adb";
 import MenuIcon from "@mui/icons-material/Menu";
+import { AuthContext } from "./Context/AuthContext";
 
 function App() {
   const pages = ["Products", "Pricing", "Blog"];
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-  const currentUser = false;
+  const { currentUser } = useContext(AuthContext);
+
   const RequireAuth = ({ children }) => {
     return currentUser ? children : <Navigate to="/" />;
   };
