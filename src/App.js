@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import "./App.css";
 import { Login } from "./Components/Login";
@@ -26,6 +26,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 function App() {
   const pages = ["Products", "Pricing", "Blog"];
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
+  const currentUser = false;
+  const RequireAuth = ({ children }) => {
+    return currentUser ? children : <Navigate to="/" />;
+  };
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -179,8 +184,22 @@ function App() {
 
         <Container>
           <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/applied" element={<h1>Applied</h1>} />
+            <Route
+              path="/home"
+              element={
+                <RequireAuth>
+                  <Home />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/applied"
+              element={
+                <RequireAuth>
+                  <h1>Applied</h1>
+                </RequireAuth>
+              }
+            />
           </Routes>
         </Container>
       </BrowserRouter>
